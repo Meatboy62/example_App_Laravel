@@ -33,7 +33,7 @@ Route::get('/contact', [HomeController::class, 'contact'])
 
 
 Route::resource('posts',PostController::class) 
-    ->only(['index', 'show', 'create' , 'store']);
+    ->only(['index', 'show', 'create' , 'store', 'edit','update']);
 
 // Route::get('/posts', function () use ($posts) {
 //     //dd(request()->all());

@@ -31,10 +31,7 @@ class PostController extends Controller
     public function store(StorePost $request)
     {
         $validated = $request->validated();
-        $post = new BlogPost();
-        $post->title = $validated['title'];
-        $post->content = $validated['content'];
-        $post->save();
+        $post = BlogPost::create($validated);
 
        session()->flash('status','The blog post was created!');
 
@@ -56,7 +53,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('posts.edit', ['post'=>BlogPost::findOrFail($id)]); 
+       
+
     }
 
     /**

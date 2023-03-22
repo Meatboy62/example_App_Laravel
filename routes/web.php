@@ -32,10 +32,8 @@ Route::get('/contact', [HomeController::class, 'contact'])
 ->name('home.contact');
 
 
-
-
-
-Route::resource('posts',PostController::class);
+Route::resource('posts',PostController::class) 
+    ->only(['index', 'show', 'create' , 'store']);
 
 // Route::get('/posts', function () use ($posts) {
 //     //dd(request()->all());

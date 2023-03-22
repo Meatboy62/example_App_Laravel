@@ -2,9 +2,13 @@
 
 @section('title', 'Blog post')
 
+
 @section('content')
-  @foreach ($posts as $post)
-      <div>{{ $post['title'] }}</div>
-  @endforeach
+  {{-- @each('posts.partials.post',$post ,'post') --}}
+  @forelse ($posts as $key => $post)
+    @include('posts.partials.post',[])
+  @empty
+    No post found!
+  @endforelse
 @endsection
 

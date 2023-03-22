@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePost;
-use Illuminate\Http\Request;
 use App\Models\BlogPost;
 
 class PostController extends Controller
@@ -54,16 +53,21 @@ class PostController extends Controller
     public function edit(string $id)
     {
         return view('posts.edit', ['post'=>BlogPost::findOrFail($id)]); 
-       
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StorePost $request, string $id)
     {
-        //
+        $post = BlogPost::findOrFail($id);
+        $validated = $request->validated();
+        $post->fill($validated);
+        $post->save();
+
+        session()->flash('status','El blog post fue actualizado!');
+        return redirect()->route('posts.show',['post'=>$post->id]);
     }
 
     /**
@@ -71,6 +75,10 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = BlogPost::findOrFail($id);
+        $post->delete();
+
+        session()->flash('status','El blog post fue borrado!');
+        return redirect()->route('posts.index');
     }
 }
